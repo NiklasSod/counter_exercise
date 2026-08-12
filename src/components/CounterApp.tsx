@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { deviceWidths } from '../utils/constants';
+import { deviceWidths } from './utils/constants';
 
 const MainWrapper = styled.main`
   padding: 1.5rem 1rem;
@@ -61,8 +61,8 @@ const CounterApp = () => {
           <H1>The Collaboration Calculator</H1>
           <Text>Help the calculators reach the goal of <span>10</span> together!</Text>
         </TextContainer>
-        {/* <ProgressBar />
-        <CollectorCounter />
+        <ProgressBar />
+        {/* <CollectorCounter />
         <ButtonWrapper>
           <button></button>
           <button></button>
