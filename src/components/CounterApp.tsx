@@ -1,14 +1,19 @@
 import styled from 'styled-components'
 import { deviceWidths } from './utils/constants';
+import ProgressBar from './ProgressBar'
 
 const MainWrapper = styled.main`
-  padding: 1.5rem 1rem;
+  margin: 0 1rem;
+  padding: 1.5rem 0;
   background-color: ${(props) => props.theme.background.main};
   @media (min-width: ${deviceWidths.mobile}) {
-      padding: 2.5rem 10rem;
+    margin: 0 10rem;
+    padding: 2.5rem 0;
+    background-color: white;
   }
   @media (min-width: ${deviceWidths.laptop}) {
-      padding: 2.5rem 20rem;
+    margin: 0 20rem;
+    padding: 2.5rem 0;
   }
 `;
 
@@ -57,16 +62,20 @@ const CounterApp = () => {
     <MainWrapper>
 
       <CollectorWrapper>
+      
         <TextContainer>
           <H1>The Collaboration Calculator</H1>
           <Text>Help the calculators reach the goal of <span>10</span> together!</Text>
         </TextContainer>
+
         <ProgressBar />
+
         {/* <CollectorCounter />
         <ButtonWrapper>
           <button></button>
           <button></button>
         </ButtonWrapper> */}
+
       </CollectorWrapper>
 
       {/* <Collector />

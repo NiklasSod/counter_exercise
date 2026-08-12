@@ -13,6 +13,7 @@ const HeaderWrapper = styled.header`
   align-items: center;
   padding: 0 3rem;
   border-bottom: 1px solid ${(props) => props.theme.border.color_light};
+  background-color: white;
   @media (min-width: ${deviceWidths.mobile}) {
     flex-direction: row;
     justify-content: space-between;
