@@ -72,7 +72,7 @@ const CounterApp = () => {
 
         <ProgressBar counterAmount={counterAmount} />
 
-        <CollectorCounter />
+        <CollectorCounter counterAmount={counterAmount} />
 
         {/* <ButtonWrapper>
           <button></button>

@@ -58,13 +58,13 @@ const HeaderLink = styled.a<HeaderLinkProps>`
 
 /* TYPES */
 
-type NavItem = 'Hem' | 'Statistik' | 'Profil';
-const navItems: readonly NavItem[] = ['Hem', 'Statistik', 'Profil'];
+type NavItem = 'Home' | 'Statistics' | 'Profile';
+const navItems: readonly NavItem[] = ['Home', 'Statistics', 'Profile'];
 
 /* COMPONENT */
 
 const Header = () => {
-  const [activeLink, setActiveLink] = useState<NavItem>('Hem');
+  const [activeLink, setActiveLink] = useState<NavItem>('Home');
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: NavItem) => {
     e.preventDefault();
@@ -75,7 +75,7 @@ const Header = () => {
     <HeaderWrapper>
       <IconWrapper>
         <img src={HeaderIcon} alt="" width={28} height={28} />
-        <HeaderText>Samarbetsräknaren</HeaderText>
+        <HeaderText>The Collaboration Calculator</HeaderText>
       </IconWrapper>
       <ListWrapper>
         {navItems.map((item) => (
