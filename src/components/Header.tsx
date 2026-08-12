@@ -7,15 +7,15 @@ import HeaderIcon from "../assets/svg/header-icon.svg";
 
 const HeaderWrapper = styled.header`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   height: 4.5rem;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   padding: 0 3rem;
   border-bottom: 1px solid ${(props) => props.theme.border.color_light};
-  @media (max-width: ${deviceWidths.mobile}) {
-    flex-direction: column;
-    justify-content: space-evenly;
+  @media (min-width: ${deviceWidths.mobile}) {
+    flex-direction: row;
+    justify-content: space-between;
   }
 `;
 
