@@ -1,6 +1,8 @@
 import styled from 'styled-components'
-import { deviceWidths } from './utils/constants';
+import { useState } from 'react'
+import { deviceWidths } from '../utils/constants'
 import ProgressBar from './ProgressBar'
+import CollectorCounter from './CollectorCounter'
 
 const MainWrapper = styled.main`
   margin: 0 1rem;
@@ -56,7 +58,7 @@ const Text = styled.p`
 `;
 
 const CounterApp = () => {
-  const counterAmount = 4;
+  const [counterAmount, setCounterAmount] = useState<number>(6);
 
   return (
     <MainWrapper>
@@ -68,10 +70,11 @@ const CounterApp = () => {
           <Text>Help the calculators reach the goal of <span>10</span> together!</Text>
         </TextContainer>
 
-        <ProgressBar />
+        <ProgressBar counterAmount={counterAmount} />
 
-        {/* <CollectorCounter />
-        <ButtonWrapper>
+        <CollectorCounter />
+
+        {/* <ButtonWrapper>
           <button></button>
           <button></button>
         </ButtonWrapper> */}

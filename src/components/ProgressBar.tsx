@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { deviceWidths } from './utils/constants';
+import { deviceWidths } from '../utils/constants';
 
 const ProgressWrapper = styled.div`
   display: flex;
@@ -57,18 +57,21 @@ const ProgressBarLine = styled.div<ProgressBarLineProps>`
   border-radius: 1rem;
 `;
 
-const ProgressBar = () => {
-  const tempNum = 7;
+interface ProgressBarProps {
+  counterAmount: number;
+}
+
+const ProgressBar = ({ counterAmount }: ProgressBarProps) => {
 
   return (
     <ProgressWrapper>
 
       <BarTextWrapper>
         <p>Goal progress <DesktopOnlyText>(Current total)</DesktopOnlyText></p>
-        <p>{tempNum} / 10</p>
+        <p>{counterAmount} / 10</p>
       </BarTextWrapper>
       <ProgressBarLineWrapper>
-        <ProgressBarLine percent={tempNum}/>
+        <ProgressBarLine percent={counterAmount}/>
       </ProgressBarLineWrapper>
       
     </ProgressWrapper>

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import { deviceWidths } from './utils/constants'
+import { deviceWidths } from '../utils/constants'
 import HeaderIcon from "../assets/svg/header-icon.svg";
 
 /* STYLED COMPONENTS */
