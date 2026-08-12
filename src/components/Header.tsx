@@ -1,21 +1,22 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import { deviceWidths } from './utils/constants'
+import { deviceWidths } from '../utils/constants'
 import HeaderIcon from "../assets/svg/header-icon.svg";
 
 /* STYLED COMPONENTS */
 
 const HeaderWrapper = styled.header`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   height: 4.5rem;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   padding: 0 3rem;
   border-bottom: 1px solid ${(props) => props.theme.border.color_light};
-  @media (max-width: ${deviceWidths.mobile}) {
-    flex-direction: column;
-    justify-content: space-evenly;
+  background-color: white;
+  @media (min-width: ${deviceWidths.mobile}) {
+    flex-direction: row;
+    justify-content: space-between;
   }
 `;
 
@@ -57,13 +58,13 @@ const HeaderLink = styled.a<HeaderLinkProps>`
 
 /* TYPES */
 
-type NavItem = 'Hem' | 'Statistik' | 'Profil';
-const navItems: readonly NavItem[] = ['Hem', 'Statistik', 'Profil'];
+type NavItem = 'Home' | 'Statistics' | 'Profile';
+const navItems: readonly NavItem[] = ['Home', 'Statistics', 'Profile'];
 
 /* COMPONENT */
 
 const Header = () => {
-  const [activeLink, setActiveLink] = useState<NavItem>('Hem');
+  const [activeLink, setActiveLink] = useState<NavItem>('Home');
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: NavItem) => {
     e.preventDefault();
@@ -74,7 +75,7 @@ const Header = () => {
     <HeaderWrapper>
       <IconWrapper>
         <img src={HeaderIcon} alt="" width={28} height={28} />
-        <HeaderText>Samarbetsräknaren</HeaderText>
+        <HeaderText>The Collaboration Calculator</HeaderText>
       </IconWrapper>
       <ListWrapper>
         {navItems.map((item) => (
