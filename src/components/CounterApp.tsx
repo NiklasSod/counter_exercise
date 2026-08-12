@@ -24,6 +24,9 @@ const CollectorWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 1.25rem;
+  @media (min-width: ${deviceWidths.mobile}) {
+    gap: 1.75rem;
+  }
 `;
 
 const TextContainer = styled.div`
@@ -57,6 +60,36 @@ const Text = styled.p`
   }
 `;
 
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.625rem;
+  @media (min-width: ${deviceWidths.mobile}) {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+`;
+
+interface ButtonProps {
+  buttonHasBgColor?: string;
+}
+
+const Button = styled.button<ButtonProps>`
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid ${(props) => props.theme.border.color_light};
+  background-color: ${(props) => props.buttonHasBgColor === 'green' ? props.theme.color.green : 'white'};
+  p {
+    font-family: 'Inter';
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-align: center;
+    color: ${(props) => props.buttonHasBgColor === 'green' ? 'white' : props.theme.color.black};
+  }
+`;
+
 const CounterApp = () => {
   const [counterAmount, setCounterAmount] = useState<number>(6);
 
@@ -74,10 +107,18 @@ const CounterApp = () => {
 
         <CollectorCounter counterAmount={counterAmount} />
 
-        {/* <ButtonWrapper>
-          <button></button>
-          <button></button>
-        </ButtonWrapper> */}
+        <ButtonWrapper>
+          <Button 
+            buttonHasBgColor="green"
+          >
+            <p>+ Add counter</p>
+          </Button>
+          <Button 
+            buttonHasBgColor="white"
+          >
+            <p>Clear all counters</p>
+          </Button>
+        </ButtonWrapper>
 
       </CollectorWrapper>
 
