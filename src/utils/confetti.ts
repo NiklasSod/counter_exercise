@@ -13,12 +13,12 @@ export const animateConfetti = (elementId = 'progressBar') => {
     const baseAngle = (360 / count) * i;
     const angle = baseAngle + (Math.random() * 20 - 10);
 
-    const radius = 80 + Math.random() * 90;
+    const radius = 50 + Math.random() * 90;
 
     const startX = (Math.random() - 0.5) * 30;
     const startY = (Math.random() - 0.5) * 30;
 
-    const size = 6 + Math.random() * 8;
+    const size = 8 + Math.random() * 8;
     const spin = (Math.random() - 0.5) * 720;
 
     const color = colors[Math.floor(Math.random() * colors.length)];
@@ -40,9 +40,6 @@ export const animateConfetti = (elementId = 'progressBar') => {
 
     container.appendChild(piece);
     createdPieces.push(piece);
-
-    piece.style.setProperty('--top', `${Math.floor(Math.random() * 61) + 20}%`);
-    piece.style.setProperty('--left', `${Math.floor(Math.random() * 61) + 20}%`);
   }
 
   setTimeout(() => {

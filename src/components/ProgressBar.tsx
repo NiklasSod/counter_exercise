@@ -70,7 +70,7 @@ const ProgressBar = ({ counterAmount, completed }: ProgressBarProps) => {
     if (completed > 0) {
       const timerIds = triggerMultipleBursts({
         elementId: 'confettiSpin',
-        totalBursts: 4,
+        totalBursts: 3,
         interval: 200,
       });
       return () => timerIds.forEach((id) => clearTimeout(id));
