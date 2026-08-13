@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { deviceWidths } from '../utils/constants'
 import ProgressBar from './ProgressBar'
 import CollectorCounter from './CollectorCounter'
+import Counter from './Counter'
 
 const MainWrapper = styled.main`
   margin: 0 1rem;
@@ -73,25 +74,32 @@ const ButtonWrapper = styled.div`
 `;
 
 interface ButtonProps {
-  buttonHasBgColor?: string;
+  $buttonHasBgColor?: string;
 }
 
 const Button = styled.button<ButtonProps>`
   padding: 0.75rem 1.5rem;
   border-radius: 0.75rem;
   border: 1px solid ${(props) => props.theme.border.color_light};
-  background-color: ${(props) => props.buttonHasBgColor === 'green' ? props.theme.color.green : 'white'};
+  background-color: ${(props) => props.$buttonHasBgColor === 'green' ? props.theme.color.green : 'white'};
   p {
     font-family: 'Inter';
     font-weight: 600;
     font-size: 0.875rem;
     text-align: center;
-    color: ${(props) => props.buttonHasBgColor === 'green' ? 'white' : props.theme.color.black};
+    color: ${(props) => props.$buttonHasBgColor === 'green' ? 'white' : props.theme.color.black};
   }
 `;
 
 const CounterApp = () => {
-  const [counterAmount, setCounterAmount] = useState<number>(6);
+  const [counterAmount, setCounterAmount] = useState<number>(9);
+  const [completed, setCompleted] = useState<number>(0);
+  const buttonAmount = 4;
+
+  if (counterAmount === 10) {
+      setCompleted(prev => prev + 1)
+      setCounterAmount(0);
+    };
 
   return (
     <MainWrapper>
@@ -103,18 +111,18 @@ const CounterApp = () => {
           <Text>Help the calculators reach the goal of <span>10</span> together!</Text>
         </TextContainer>
 
-        <ProgressBar counterAmount={counterAmount} />
+        <ProgressBar counterAmount={counterAmount} completed={completed} />
 
         <CollectorCounter counterAmount={counterAmount} />
 
         <ButtonWrapper>
           <Button 
-            buttonHasBgColor="green"
+            $buttonHasBgColor="green"
           >
             <p>+ Add counter</p>
           </Button>
           <Button 
-            buttonHasBgColor="white"
+            $buttonHasBgColor="white"
           >
             <p>Clear all counters</p>
           </Button>
@@ -122,10 +130,9 @@ const CounterApp = () => {
 
       </CollectorWrapper>
 
-      {/* <Collector />
-      {Array.from({ length: counterAmount }, (_, index) => (
-        <Counter key={index} />
-      ))} */}
+      {Array.from({ length: buttonAmount }, (_, index) => (
+        <Counter key={index} setCounterAmount={setCounterAmount} />
+      ))}
 
     </MainWrapper>
   )

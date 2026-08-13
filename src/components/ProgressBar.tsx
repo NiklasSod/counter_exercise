@@ -1,5 +1,8 @@
 import styled from 'styled-components'
-import { deviceWidths } from '../utils/constants';
+import { deviceWidths } from '../utils/constants'
+import { useEffect } from 'react'
+import '../assets/confetti.css'
+import { triggerMultipleBursts } from '../utils/confetti'
 
 const ProgressWrapper = styled.div`
   display: flex;
@@ -46,11 +49,11 @@ const ProgressBarLineWrapper = styled.div`
 `;
 
 interface ProgressBarLineProps {
-  percent: number;
+  $percent: number;
 }
 
 const ProgressBarLine = styled.div<ProgressBarLineProps>`
-  width: ${props => props.percent * 10}%;
+  width: ${props => props.$percent * 10}%;
   height: 0.75rem;
   border: 1px solid ${(props) => props.theme.color.green};
   background-color: ${(props) => props.theme.color.green};
@@ -59,19 +62,33 @@ const ProgressBarLine = styled.div<ProgressBarLineProps>`
 
 interface ProgressBarProps {
   counterAmount: number;
+  completed: number;
 }
 
-const ProgressBar = ({ counterAmount }: ProgressBarProps) => {
+const ProgressBar = ({ counterAmount, completed }: ProgressBarProps) => {
+  useEffect(() => {
+    if (completed > 0) {
+      const timerIds = triggerMultipleBursts({
+        elementId: 'confettiSpin',
+        totalBursts: 4,
+        interval: 200,
+      });
+      return () => timerIds.forEach((id) => clearTimeout(id));
+    }
+  }, [completed]);
 
   return (
     <ProgressWrapper>
 
       <BarTextWrapper>
         <p>Goal progress <DesktopOnlyText>(Current total)</DesktopOnlyText></p>
-        <p>{counterAmount} / 10</p>
+        {completed === 0 
+          ? <p id='confettiSpin'>{counterAmount} / 10</p>
+          : <p id='confettiSpin'>{counterAmount} / 10. Times completed: {completed}</p>
+        }
       </BarTextWrapper>
       <ProgressBarLineWrapper>
-        <ProgressBarLine percent={counterAmount}/>
+        <ProgressBarLine $percent={counterAmount}/>
       </ProgressBarLineWrapper>
       
     </ProgressWrapper>
