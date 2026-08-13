@@ -92,7 +92,7 @@ const Button = styled.button<ButtonProps>`
 `;
 
 const CounterApp = () => {
-  const [counterAmount, setCounterAmount] = useState<number>(9);
+  const [counterAmount, setCounterAmount] = useState<number>(0);
   const [completed, setCompleted] = useState<number>(0);
   const buttonAmount = 4;
 
@@ -131,7 +131,7 @@ const CounterApp = () => {
       </CollectorWrapper>
 
       {Array.from({ length: buttonAmount }, (_, index) => (
-        <Counter key={index} setCounterAmount={setCounterAmount} />
+        <Counter key={`${index} ${completed}`} setCounterAmount={setCounterAmount} />
       ))}
 
     </MainWrapper>
