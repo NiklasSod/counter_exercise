@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import type { MouseEvent } from 'react'
 import styled from 'styled-components'
 import { deviceWidths } from '../utils/constants'
 import HeaderIcon from "../assets/svg/header-icon.svg";
@@ -27,7 +28,7 @@ const IconWrapper = styled.div`
   gap: 0.625rem;
 `;
 
-const HeaderText = styled.h2`
+const HeaderText = styled.p`
   font-family: 'Inter';
   font-weight: bold;
   font-size: 1.125rem;
@@ -66,7 +67,7 @@ const navItems: readonly NavItem[] = ['Home', 'Statistics', 'Profile'];
 const Header = () => {
   const [activeLink, setActiveLink] = useState<NavItem>('Home');
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: NavItem) => {
+  const handleNavClick = (e: MouseEvent<HTMLAnchorElement>, item: NavItem) => {
     e.preventDefault();
     setActiveLink(item);
   };
@@ -77,19 +78,22 @@ const Header = () => {
         <img src={HeaderIcon} alt="" width={28} height={28} />
         <HeaderText>The Collaboration Calculator</HeaderText>
       </IconWrapper>
-      <ListWrapper>
-        {navItems.map((item) => (
-          <li key={item}>
-            <HeaderLink
-              href="#"
-              $active={activeLink === item}
-              onClick={(e) => handleNavClick(e, item)}
-            >
-              {item}
-            </HeaderLink>
-          </li>
-        ))}
-      </ListWrapper>
+      <nav aria-label="Main navigation">
+        <ListWrapper>
+          {navItems.map((item) => (
+            <li key={item}>
+              <HeaderLink
+                href="#"
+                $active={activeLink === item}
+                aria-current={activeLink === item ? 'page' : undefined}
+                onClick={(e) => handleNavClick(e, item)}
+              >
+                {item}
+              </HeaderLink>
+            </li>
+          ))}
+        </ListWrapper>
+      </nav>
     </HeaderWrapper>
   )
 }

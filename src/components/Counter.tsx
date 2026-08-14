@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import type { MouseEvent } from 'react'
 
 /* STYLED COMPONENTS */
 
@@ -21,7 +22,7 @@ interface CounterCountProps {
   $buttonClicks: number;
 }
 
-const CounterCount = styled.p<CounterCountProps>`
+const CounterCount = styled.h3<CounterCountProps>`
   font-family: 'Inter';
   font-weight: bold;
   font-size: 0.75rem;
@@ -35,6 +36,10 @@ const ButtonRemove = styled.button`
   background-color: ${props => props.theme.color.lightGray};
   border: none;
   cursor: pointer;
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 `;
 
 interface ClickCountProps {
@@ -66,6 +71,10 @@ const Button = styled.button<ButtonProps>`
   border-radius: 0.625rem;
   background-color: ${props => props.theme.color.lightGreen};
   cursor: ${props => props.$buttonClicks >= 3 ? 'default' : 'pointer'};
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
 `;
 
 /* TYPES */
@@ -83,7 +92,7 @@ interface CollectorCounterProps {
 const Counter = ({ onIncrement, removeCounter, counters, index, clicks }: CollectorCounterProps) => {
   const maxButtonClicks = 3;
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (clicks < maxButtonClicks) {
       onIncrement();
@@ -93,8 +102,9 @@ const Counter = ({ onIncrement, removeCounter, counters, index, clicks }: Collec
   return (
     <CounterWrapper>
 
-      <TopDiv>
-        <CounterCount $buttonClicks={clicks}>Counter #{index + 1}</CounterCount>
+      <TopDiv aria-label={`Remove counter number ${index + 1}`}>
+          
+        <CounterCount $buttonClicks={clicks}>Counter number {index + 1}</CounterCount>
         <ButtonRemove 
           onClick={removeCounter}
           disabled={counters <= 1}
@@ -102,15 +112,23 @@ const Counter = ({ onIncrement, removeCounter, counters, index, clicks }: Collec
           Remove counter
         </ButtonRemove>
       </TopDiv>
-
-      <ClickCount $buttonClicks={clicks}>{clicks} <span>/ 3</span></ClickCount>
+      <ClickCount 
+        aria-label={`This button now has ${clicks} of the max ${maxButtonClicks} points`} 
+        $buttonClicks={clicks}
+      >
+        {clicks}
+        <span>/ 3</span>
+      </ClickCount>
 
       <Button 
         onClick={(e) => handleClick(e)}
         disabled={clicks === maxButtonClicks}
         $buttonClicks={clicks}
+        aria-label={clicks >= maxButtonClicks
+          ? `Counter number ${index + 1} reached the maximum value`
+          : `Increase counter number ${index + 1} value`}
       >
-        {clicks >= 3 ? <p>Max value (3) added</p> : <p>Increase value</p>}
+        {clicks >= 3 ? <span>Max value (3) added</span> : <span>Increase value</span>}
       </Button>
 
     </CounterWrapper>

@@ -3,7 +3,7 @@ import { deviceWidths } from '../utils/constants';
 
 /* STYLED COMPONENTS */
 
-const FooterWrapper = styled.div`
+const FooterWrapper = styled.footer`
   display: flex;
   flex-direction: column;
   align-items: center;

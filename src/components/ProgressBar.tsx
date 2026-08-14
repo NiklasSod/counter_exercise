@@ -84,16 +84,22 @@ const ProgressBar = ({ counterToTenAmount, completed }: ProgressBarProps) => {
   }, [completed]);
 
   return (
-    <ProgressWrapper>
+    <ProgressWrapper id="confettiSpin">
 
       <BarTextWrapper>
         <p>Goal progress <DesktopOnlyText>(Current total)</DesktopOnlyText></p>
         {completed === 0 
-          ? <p id='confettiSpin'>{counterToTenAmount} / 10</p>
-          : <p id='confettiSpin'>{counterToTenAmount} / 10. Times completed: {completed}</p>
+          ? <p aria-live="polite">Value is now at {counterToTenAmount} / 10</p>
+          : <p aria-live="polite">Value is now at {counterToTenAmount} / 10. Times completed: {completed}</p>
         }
       </BarTextWrapper>
-      <ProgressBarLineWrapper>
+      <ProgressBarLineWrapper 
+        role="progressbar"
+        aria-label="Goal progress"
+        aria-valuemin={0}
+        aria-valuemax={10}
+        aria-valuenow={counterToTenAmount}
+      >
         <ProgressBarLine $percent={counterToTenAmount}/>
       </ProgressBarLineWrapper>
       

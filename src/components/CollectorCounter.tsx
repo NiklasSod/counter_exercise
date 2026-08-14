@@ -52,7 +52,12 @@ const CollectorCounter = ({ counterToTenAmount }: CollectorCounterProps) => {
   return (
     <CollectorWrapper>
       <CollectorMainText>The Collector</CollectorMainText>
-      <CollectorNumber>{counterToTenAmount}</CollectorNumber>
+      <CollectorNumber 
+        aria-live="polite" 
+        aria-label={`You now have ${counterToTenAmount} out of 10 points collected`}
+      >
+        {counterToTenAmount}
+      </CollectorNumber>
       <CollectorText>Total points collected (Goal: 10)</CollectorText>
     </CollectorWrapper>
   )

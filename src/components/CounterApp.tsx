@@ -87,7 +87,7 @@ const Button = styled.button<ButtonProps>`
   border-radius: 0.75rem;
   border: 1px solid ${(props) => props.theme.border.color_light};
   background-color: ${(props) => props.$buttonHasBgColor === 'green' ? props.theme.color.green : 'white'};
-  p {
+  span {
     font-family: 'Inter';
     font-weight: 600;
     font-size: 0.875rem;
@@ -165,7 +165,7 @@ const CounterApp = () => {
   }
 
   return (
-    <MainWrapper>
+    <MainWrapper id="main-content" tabIndex={-1}>
 
       <CollectorWrapper>
       
@@ -182,14 +182,16 @@ const CounterApp = () => {
           <Button 
             $buttonHasBgColor="green"
             onClick={addCounter}
+            aria-label={`Add a new counter. Counter number ${counters.length + 1} will be added`}
           >
-            <p>+ Add counter</p>
+            <span>+ Add counter</span>
           </Button>
           <Button 
             $buttonHasBgColor="white"
             onClick={clearAllSettings}
+            aria-label="Reset all counters and progress"
           >
-            <p>Reset everything</p>
+            <span>Reset everything</span>
           </Button>
         </ButtonWrapper>
 
