@@ -1,7 +1,9 @@
 import styled from 'styled-components'
 import { deviceWidths } from '../utils/constants';
 
-const FooterWrapper = styled.div`
+/* STYLED COMPONENTS */
+
+const FooterWrapper = styled.footer`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,6 +31,8 @@ const TextDiv = styled.div`
   flex-direction: row;
   gap: 1.25rem;
 `;
+
+/* COMPONENT */
 
 const Footer = () => {
 

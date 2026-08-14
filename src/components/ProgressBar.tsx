@@ -4,6 +4,8 @@ import { useEffect } from 'react'
 import '../assets/confetti.css'
 import { triggerMultipleBursts } from '../utils/confetti'
 
+/* STYLED COMPONENTS */
+
 const ProgressWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -60,12 +62,16 @@ const ProgressBarLine = styled.div<ProgressBarLineProps>`
   border-radius: 1rem;
 `;
 
+/* TYPES */
+
 interface ProgressBarProps {
-  counterAmount: number;
+  counterToTenAmount: number;
   completed: number;
 }
 
-const ProgressBar = ({ counterAmount, completed }: ProgressBarProps) => {
+/* COMPONENT */
+
+const ProgressBar = ({ counterToTenAmount, completed }: ProgressBarProps) => {
   useEffect(() => {
     if (completed > 0) {
       const timerIds = triggerMultipleBursts({
@@ -78,17 +84,23 @@ const ProgressBar = ({ counterAmount, completed }: ProgressBarProps) => {
   }, [completed]);
 
   return (
-    <ProgressWrapper>
+    <ProgressWrapper id="confettiSpin">
 
       <BarTextWrapper>
         <p>Goal progress <DesktopOnlyText>(Current total)</DesktopOnlyText></p>
         {completed === 0 
-          ? <p id='confettiSpin'>{counterAmount} / 10</p>
-          : <p id='confettiSpin'>{counterAmount} / 10. Times completed: {completed}</p>
+          ? <p aria-live="polite">Value is now at {counterToTenAmount} / 10</p>
+          : <p aria-live="polite">Value is now at {counterToTenAmount} / 10. Times completed: {completed}</p>
         }
       </BarTextWrapper>
-      <ProgressBarLineWrapper>
-        <ProgressBarLine $percent={counterAmount}/>
+      <ProgressBarLineWrapper 
+        role="progressbar"
+        aria-label="Goal progress"
+        aria-valuemin={0}
+        aria-valuemax={10}
+        aria-valuenow={counterToTenAmount}
+      >
+        <ProgressBarLine $percent={counterToTenAmount}/>
       </ProgressBarLineWrapper>
       
     </ProgressWrapper>

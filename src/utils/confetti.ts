@@ -2,6 +2,10 @@ export const animateConfetti = (elementId = 'progressBar') => {
   const container = document.getElementById(elementId);
   if (!container) return;
 
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
   const count = 45;
   const colors = ['#f44336', '#e91e63', '#9c27b0', '#2196f3', '#4caf50', '#ffeb3b', '#ff9800'];
   const createdPieces: HTMLDivElement[] = [];

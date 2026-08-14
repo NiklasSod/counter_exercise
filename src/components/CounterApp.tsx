@@ -5,6 +5,8 @@ import ProgressBar from './ProgressBar'
 import CollectorCounter from './CollectorCounter'
 import Counter from './Counter'
 
+/* STYLED COMPONENTS */
+
 const MainWrapper = styled.main`
   display: flex; 
   flex-direction: column;
@@ -85,7 +87,7 @@ const Button = styled.button<ButtonProps>`
   border-radius: 0.75rem;
   border: 1px solid ${(props) => props.theme.border.color_light};
   background-color: ${(props) => props.$buttonHasBgColor === 'green' ? props.theme.color.green : 'white'};
-  p {
+  span {
     font-family: 'Inter';
     font-weight: 600;
     font-size: 0.875rem;
@@ -107,8 +109,10 @@ const CounterWrapper = styled.div`
   }
 `;
 
+/* COMPONENT */
+
 const CounterApp = () => {
-  const [counterAmount, setCounterAmount] = useState<number>(0);
+  const [counterToTenAmount, setCounterToTenAmount] = useState<number>(0);
   const [completed, setCompleted] = useState<number>(0);
   const [counters, setCounters] = useState<{ id: number; clicks: number }[]>([
     { id: 1, clicks: 0 },
@@ -118,14 +122,14 @@ const CounterApp = () => {
   ]);
 
   const handleIncrement = (id: number) => {
-    if (counterAmount + 1 >= 10) {
-      setCounterAmount(0);
+    if (counterToTenAmount + 1 >= 10) {
+      setCounterToTenAmount(0);
       setCompleted((prev) => prev + 1);
       setCounters((prev) =>
         prev.map((counter) => ({ ...counter, clicks: 0 }))
       );
     } else {
-      setCounterAmount((prev) => prev + 1);
+      setCounterToTenAmount((prev) => prev + 1);
       setCounters((prev) =>
         prev.map((counter) =>
           counter.id === id ? { ...counter, clicks: counter.clicks + 1 } : counter
@@ -142,7 +146,7 @@ const CounterApp = () => {
   };
 
   const clearAllSettings = () => {
-    setCounterAmount(0)
+    setCounterToTenAmount(0)
     setCompleted(0)
     setCounters([
       { id: 1, clicks: 0 },
@@ -156,12 +160,12 @@ const CounterApp = () => {
     if (counters.length <= 1) {
       return;
     }
-    setCounterAmount((prev) => Math.max(0, prev - buttonClicks));
+    setCounterToTenAmount((prev) => Math.max(0, prev - buttonClicks));
     setCounters((prev) => prev.filter((counter) => counter.id !== idToRemove));
   }
 
   return (
-    <MainWrapper>
+    <MainWrapper id="main-content" tabIndex={-1}>
 
       <CollectorWrapper>
       
@@ -170,22 +174,24 @@ const CounterApp = () => {
           <Text>Help the calculators reach the goal of <span>10</span> together!</Text>
         </TextContainer>
 
-        <ProgressBar counterAmount={counterAmount} completed={completed} />
+        <ProgressBar counterToTenAmount={counterToTenAmount} completed={completed} />
 
-        <CollectorCounter counterAmount={counterAmount} />
+        <CollectorCounter counterToTenAmount={counterToTenAmount} />
 
         <ButtonWrapper>
           <Button 
             $buttonHasBgColor="green"
             onClick={addCounter}
+            aria-label={`Add a new counter. Counter number ${counters.length + 1} will be added`}
           >
-            <p>+ Add counter</p>
+            <span>+ Add counter</span>
           </Button>
           <Button 
             $buttonHasBgColor="white"
             onClick={clearAllSettings}
+            aria-label="Reset all counters and progress"
           >
-            <p>Reset everything</p>
+            <span>Reset everything</span>
           </Button>
         </ButtonWrapper>
 
