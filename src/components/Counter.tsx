@@ -7,7 +7,6 @@ const CounterWrapper = styled.div`
   border-radius: 1rem;
   border: 1px solid ${props => props.theme.border.color_light};
   gap: 1rem;
-  margin: 0.75rem;
 `;
 
 const TopDiv = styled.div`

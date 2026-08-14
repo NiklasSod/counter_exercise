@@ -6,17 +6,20 @@ import CollectorCounter from './CollectorCounter'
 import Counter from './Counter'
 
 const MainWrapper = styled.main`
+  display: flex; 
+  flex-direction: column;
+  gap: 1.25rem;
   margin: 0 1rem;
   padding: 1.5rem 0;
   background-color: ${(props) => props.theme.background.main};
   @media (min-width: ${deviceWidths.mobile}) {
-    margin: 0 10rem;
-    padding: 2.5rem 0;
+    margin: 0 5rem;
+    padding: 0;
     background-color: white;
   }
   @media (min-width: ${deviceWidths.laptop}) {
     margin: 0 20rem;
-    padding: 2.5rem 0;
+    padding: 0;
   }
 `;
 
@@ -90,6 +93,18 @@ const Button = styled.button<ButtonProps>`
     color: ${(props) => props.$buttonHasBgColor === 'green' ? 'white' : props.theme.color.black};
   }
   cursor: pointer;
+`;
+
+const CounterWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  @media (min-width: ${deviceWidths.mobile}) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    padding: 1.75rem 0 2.5rem 0;
+  }
 `;
 
 const CounterApp = () => {
@@ -176,16 +191,18 @@ const CounterApp = () => {
 
       </CollectorWrapper>
 
-      {counters.map((counter, index) => (
-        <Counter 
-          key={counter.id}
-          index={index}
-          clicks={counter.clicks}
-          onIncrement={() => handleIncrement(counter.id)} 
-          removeCounter={() => removeCounter(counter.id, counter.clicks)}
-          counters={counters.length}
-        />
-      ))}
+      <CounterWrapper>
+        {counters.map((counter, index) => (
+          <Counter 
+            key={counter.id}
+            index={index}
+            clicks={counter.clicks}
+            onIncrement={() => handleIncrement(counter.id)} 
+            removeCounter={() => removeCounter(counter.id, counter.clicks)}
+            counters={counters.length}
+          />
+        ))}
+      </CounterWrapper>
 
     </MainWrapper>
   )
