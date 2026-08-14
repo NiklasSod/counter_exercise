@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+/* STYLED COMPONENTS */
+
 const CounterWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -66,6 +68,8 @@ const Button = styled.button<ButtonProps>`
   cursor: ${props => props.$buttonClicks >= 3 ? 'default' : 'pointer'};
 `;
 
+/* TYPES */
+
 interface CollectorCounterProps {
   onIncrement: () => void;
   removeCounter: () => void;
@@ -73,6 +77,8 @@ interface CollectorCounterProps {
   index: number;
   clicks: number;
 }
+
+/* COMPONENT */
 
 const Counter = ({ onIncrement, removeCounter, counters, index, clicks }: CollectorCounterProps) => {
   const maxButtonClicks = 3;

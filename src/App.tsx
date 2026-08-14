@@ -4,6 +4,8 @@ import Header from './components/Header'
 import CounterApp from './components/CounterApp'
 import Footer from './components/Footer'
 
+/* COMPONENT */
+
 function App() {
 
   return (

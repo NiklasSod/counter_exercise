@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+/* STYLED COMPONENTS */
+
 const CollectorWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -37,16 +39,20 @@ const CollectorText = styled.p`
   color: ${(props) => props.theme.color.gray};
 `;
 
+/* TYPES */
+
 interface CollectorCounterProps {
-  counterAmount: number;
+  counterToTenAmount: number;
 }
 
-const CollectorCounter = ({ counterAmount }: CollectorCounterProps) => {
+/* COMPONENT */
+
+const CollectorCounter = ({ counterToTenAmount }: CollectorCounterProps) => {
   
   return (
     <CollectorWrapper>
       <CollectorMainText>The Collector</CollectorMainText>
-      <CollectorNumber>{counterAmount}</CollectorNumber>
+      <CollectorNumber>{counterToTenAmount}</CollectorNumber>
       <CollectorText>Total points collected (Goal: 10)</CollectorText>
     </CollectorWrapper>
   )
