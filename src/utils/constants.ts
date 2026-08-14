@@ -3,4 +3,4 @@ export const deviceWidths = {
   tablet: '900px',
   laptop: '1280px',
   desktop: '1440px',
-};
+}

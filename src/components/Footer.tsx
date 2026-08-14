@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { deviceWidths } from '../utils/constants';
+import { deviceWidths } from '../utils/constants'
 
 /* STYLED COMPONENTS */
 
@@ -17,37 +17,30 @@ const FooterWrapper = styled.footer`
     justify-content: space-between;
     padding: 1.25rem 3rem;
   }
-`;
+`
 
 const Text = styled.p`
   font-family: 'Inter';
   font-weight: normal;
   font-size: 0.8125rem;
-  color: ${props => props.theme.color.gray};
-`;
+  color: ${(props) => props.theme.color.gray};
+`
 
 const TextDiv = styled.div`
   display: flex;
   flex-direction: row;
   gap: 1.25rem;
-`;
+`
 
 /* COMPONENT */
 
 const Footer = () => {
-
   return (
     <FooterWrapper>
-      <Text>
-        © 2026 The Collaboration Calculator Inc.
-      </Text>
+      <Text>© 2026 The Collaboration Calculator Inc.</Text>
       <TextDiv>
-        <Text>
-          Privacy Policy
-        </Text>
-        <Text>
-          Terms
-        </Text>
+        <Text>Privacy Policy</Text>
+        <Text>Terms</Text>
       </TextDiv>
     </FooterWrapper>
   )

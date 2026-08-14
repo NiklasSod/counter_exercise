@@ -7,7 +7,6 @@ import Footer from './components/Footer'
 /* COMPONENT */
 
 function App() {
-
   return (
     <ThemeProvider theme={theme}>
       <Header />

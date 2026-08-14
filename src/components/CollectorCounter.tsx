@@ -12,7 +12,7 @@ const CollectorWrapper = styled.div`
   background-color: white;
   border-radius: 1rem;
   border: 1px solid ${(props) => props.theme.border.color_light};
-`;
+`
 
 const CollectorMainText = styled.p`
   font-family: 'Inter';
@@ -21,7 +21,7 @@ const CollectorMainText = styled.p`
   text-align: center;
   text-transform: uppercase;
   color: ${(props) => props.theme.color.green};
-`;
+`
 
 const CollectorNumber = styled.p`
   font-family: 'Inter';
@@ -29,7 +29,7 @@ const CollectorNumber = styled.p`
   font-size: 3.25rem;
   text-align: center;
   color: ${(props) => props.theme.color.black};
-`;
+`
 
 const CollectorText = styled.p`
   font-family: 'Inter';
@@ -37,23 +37,22 @@ const CollectorText = styled.p`
   font-size: 0.8125rem;
   text-align: center;
   color: ${(props) => props.theme.color.gray};
-`;
+`
 
 /* TYPES */
 
 interface CollectorCounterProps {
-  counterToTenAmount: number;
+  counterToTenAmount: number
 }
 
 /* COMPONENT */
 
 const CollectorCounter = ({ counterToTenAmount }: CollectorCounterProps) => {
-  
   return (
     <CollectorWrapper>
       <CollectorMainText>The Collector</CollectorMainText>
-      <CollectorNumber 
-        aria-live="polite" 
+      <CollectorNumber
+        aria-live="polite"
         aria-label={`You now have ${counterToTenAmount} out of 10 points collected`}
       >
         {counterToTenAmount}

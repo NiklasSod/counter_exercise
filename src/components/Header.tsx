@@ -2,7 +2,7 @@ import { useState } from 'react'
 import type { MouseEvent } from 'react'
 import styled from 'styled-components'
 import { deviceWidths } from '../utils/constants'
-import HeaderIcon from "../assets/svg/header-icon.svg";
+import HeaderIcon from '../assets/svg/header-icon.svg'
 
 /* STYLED COMPONENTS */
 
@@ -19,31 +19,31 @@ const HeaderWrapper = styled.header`
     flex-direction: row;
     justify-content: space-between;
   }
-`;
+`
 
 const IconWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 0.625rem;
-`;
+`
 
 const HeaderText = styled.p`
   font-family: 'Inter';
   font-weight: bold;
   font-size: 1.125rem;
   color: ${(props) => props.theme.color.black};
-`;
+`
 
 const ListWrapper = styled.ul`
   display: flex;
   flex-direction: row;
   gap: 2rem;
   list-style-type: none;
-`;
+`
 
 interface HeaderLinkProps {
-  $active?: boolean;
+  $active?: boolean
 }
 
 const HeaderLink = styled.a<HeaderLinkProps>`
@@ -55,22 +55,22 @@ const HeaderLink = styled.a<HeaderLinkProps>`
   &:hover {
     color: ${(props) => (props.$active ? `${props.theme.hover.green}` : `${props.theme.hover.gray}`)};
   }
-`;
+`
 
 /* TYPES */
 
-type NavItem = 'Home' | 'Statistics' | 'Profile';
-const navItems: readonly NavItem[] = ['Home', 'Statistics', 'Profile'];
+type NavItem = 'Home' | 'Statistics' | 'Profile'
+const navItems: readonly NavItem[] = ['Home', 'Statistics', 'Profile']
 
 /* COMPONENT */
 
 const Header = () => {
-  const [activeLink, setActiveLink] = useState<NavItem>('Home');
+  const [activeLink, setActiveLink] = useState<NavItem>('Home')
 
   const handleNavClick = (e: MouseEvent<HTMLAnchorElement>, item: NavItem) => {
-    e.preventDefault();
-    setActiveLink(item);
-  };
+    e.preventDefault()
+    setActiveLink(item)
+  }
 
   return (
     <HeaderWrapper>
