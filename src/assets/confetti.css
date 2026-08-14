@@ -1,5 +1,5 @@
 .confetti-explosion {
-  position: absolute;
+  position: fixed;
   top: var(50%, 50%);
   right: var(50%, 50%);
   opacity: 0;

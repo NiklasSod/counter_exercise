@@ -1,34 +1,113 @@
 import styled from 'styled-components'
-import { useState } from 'react';
 
 const CounterWrapper = styled.div`
   display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid ${props => props.theme.border.color_light};
+  gap: 1rem;
+  margin: 0.75rem;
+`;
+
+const TopDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+interface CounterCountProps {
+  $buttonClicks: number;
+}
+
+const CounterCount = styled.p<CounterCountProps>`
+  font-family: 'Inter';
+  font-weight: bold;
+  font-size: 0.75rem;
+  color: ${props => props.$buttonClicks === 3 ? props.theme.color.gray : props.theme.color.darkGray};
+`;
+
+const ButtonRemove = styled.button`
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+  color: ${props => props.theme.color.red};
+  background-color: ${props => props.theme.color.lightGray};
+  border: none;
+  cursor: pointer;
+`;
+
+interface ClickCountProps {
+  $buttonClicks: number;
+}
+
+const ClickCount = styled.p<ClickCountProps>`
+  font-family: 'Inter';
+  font-weight: 800;
+  font-size: 2.25rem;
+  color: ${props => props.$buttonClicks >= 3 ? props.theme.color.green : props.theme.color.black};
+  text-align: center;
+  span {
+    font-weight: normal;
+    font-size: 1.125rem;
+    color: ${props => props.theme.color.gray};
+  }
+`;
+
+interface ButtonProps {
+  $buttonClicks: number;
+}
+
+const Button = styled.button<ButtonProps>`
+  margin: auto;
+  padding: 0.625rem;
+  width: 10rem;
+  border: 2px solid ${props => props.theme.color.green};
+  border-radius: 0.625rem;
+  background-color: ${props => props.theme.color.lightGreen};
+  cursor: ${props => props.$buttonClicks >= 3 ? 'default' : 'pointer'};
 `;
 
 interface CollectorCounterProps {
-  setCounterAmount: React.Dispatch<React.SetStateAction<number>>;
+  onIncrement: () => void;
+  removeCounter: () => void;
+  counters: number;
+  index: number;
+  clicks: number;
 }
 
-const Counter = ({ setCounterAmount }: CollectorCounterProps) => {
-  const [buttonClicks, setButtonClicks] = useState<number>(0)
+const Counter = ({ onIncrement, removeCounter, counters, index, clicks }: CollectorCounterProps) => {
   const maxButtonClicks = 3;
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    setCounterAmount(prev => prev + 1)
-    if (buttonClicks < 3) {
-      setButtonClicks(prev => prev + 1)
+    if (clicks < maxButtonClicks) {
+      onIncrement();
     }
   }
 
   return (
     <CounterWrapper>
-      <button 
+
+      <TopDiv>
+        <CounterCount $buttonClicks={clicks}>Counter #{index + 1}</CounterCount>
+        <ButtonRemove 
+          onClick={removeCounter}
+          disabled={counters <= 1}
+        >
+          Remove counter
+        </ButtonRemove>
+      </TopDiv>
+
+      <ClickCount $buttonClicks={clicks}>{clicks} <span>/ 3</span></ClickCount>
+
+      <Button 
         onClick={(e) => handleClick(e)}
-        disabled={buttonClicks === maxButtonClicks}
+        disabled={clicks === maxButtonClicks}
+        $buttonClicks={clicks}
       >
-        <p>Hellu</p>
-      </button>
+        <p>Increase value</p>
+      </Button>
+
     </CounterWrapper>
   )
 }
