@@ -1,7 +1,7 @@
 .confetti-explosion {
   position: fixed;
-  top: var(50%, 50%);
-  right: var(50%, 50%);
+  top: 50%;
+  right: 50%;
   opacity: 0;
   pointer-events: none;
   animation: explosionBurst 1s cubic-bezier(0.08, 0.82, 0.17, 1) forwards;
