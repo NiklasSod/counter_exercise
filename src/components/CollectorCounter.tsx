@@ -42,6 +42,7 @@ interface CollectorCounterProps {
 }
 
 const CollectorCounter = ({ counterAmount }: CollectorCounterProps) => {
+  
   return (
     <CollectorWrapper>
       <CollectorMainText>The Collector</CollectorMainText>

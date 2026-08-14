@@ -3,19 +3,23 @@ import { useState } from 'react'
 import { deviceWidths } from '../utils/constants'
 import ProgressBar from './ProgressBar'
 import CollectorCounter from './CollectorCounter'
+import Counter from './Counter'
 
 const MainWrapper = styled.main`
+  display: flex; 
+  flex-direction: column;
+  gap: 1.25rem;
   margin: 0 1rem;
   padding: 1.5rem 0;
   background-color: ${(props) => props.theme.background.main};
   @media (min-width: ${deviceWidths.mobile}) {
-    margin: 0 10rem;
-    padding: 2.5rem 0;
+    margin: 0 5rem;
+    padding: 0;
     background-color: white;
   }
   @media (min-width: ${deviceWidths.laptop}) {
     margin: 0 20rem;
-    padding: 2.5rem 0;
+    padding: 0;
   }
 `;
 
@@ -73,25 +77,88 @@ const ButtonWrapper = styled.div`
 `;
 
 interface ButtonProps {
-  buttonHasBgColor?: string;
+  $buttonHasBgColor?: string;
 }
 
 const Button = styled.button<ButtonProps>`
   padding: 0.75rem 1.5rem;
   border-radius: 0.75rem;
   border: 1px solid ${(props) => props.theme.border.color_light};
-  background-color: ${(props) => props.buttonHasBgColor === 'green' ? props.theme.color.green : 'white'};
+  background-color: ${(props) => props.$buttonHasBgColor === 'green' ? props.theme.color.green : 'white'};
   p {
     font-family: 'Inter';
     font-weight: 600;
     font-size: 0.875rem;
     text-align: center;
-    color: ${(props) => props.buttonHasBgColor === 'green' ? 'white' : props.theme.color.black};
+    color: ${(props) => props.$buttonHasBgColor === 'green' ? 'white' : props.theme.color.black};
+  }
+  cursor: pointer;
+`;
+
+const CounterWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  @media (min-width: ${deviceWidths.mobile}) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    padding: 1.75rem 0 2.5rem 0;
   }
 `;
 
 const CounterApp = () => {
-  const [counterAmount, setCounterAmount] = useState<number>(6);
+  const [counterAmount, setCounterAmount] = useState<number>(0);
+  const [completed, setCompleted] = useState<number>(0);
+  const [counters, setCounters] = useState<{ id: number; clicks: number }[]>([
+    { id: 1, clicks: 0 },
+    { id: 2, clicks: 0 },
+    { id: 3, clicks: 0 },
+    { id: 4, clicks: 0 },
+  ]);
+
+  const handleIncrement = (id: number) => {
+    if (counterAmount + 1 >= 10) {
+      setCounterAmount(0);
+      setCompleted((prev) => prev + 1);
+      setCounters((prev) =>
+        prev.map((counter) => ({ ...counter, clicks: 0 }))
+      );
+    } else {
+      setCounterAmount((prev) => prev + 1);
+      setCounters((prev) =>
+        prev.map((counter) =>
+          counter.id === id ? { ...counter, clicks: counter.clicks + 1 } : counter
+        )
+      );
+    }
+  };
+
+  const addCounter = () => {
+    setCounters((prev) => [
+      ...prev,
+      { id: Date.now(), clicks: 0 }
+    ]);
+  };
+
+  const clearAllSettings = () => {
+    setCounterAmount(0)
+    setCompleted(0)
+    setCounters([
+      { id: 1, clicks: 0 },
+      { id: 2, clicks: 0 },
+      { id: 3, clicks: 0 },
+      { id: 4, clicks: 0 },
+    ]);
+  }
+
+  const removeCounter = (idToRemove: number, buttonClicks: number) => {
+    if (counters.length <= 1) {
+      return;
+    }
+    setCounterAmount((prev) => Math.max(0, prev - buttonClicks));
+    setCounters((prev) => prev.filter((counter) => counter.id !== idToRemove));
+  }
 
   return (
     <MainWrapper>
@@ -103,29 +170,39 @@ const CounterApp = () => {
           <Text>Help the calculators reach the goal of <span>10</span> together!</Text>
         </TextContainer>
 
-        <ProgressBar counterAmount={counterAmount} />
+        <ProgressBar counterAmount={counterAmount} completed={completed} />
 
         <CollectorCounter counterAmount={counterAmount} />
 
         <ButtonWrapper>
           <Button 
-            buttonHasBgColor="green"
+            $buttonHasBgColor="green"
+            onClick={addCounter}
           >
             <p>+ Add counter</p>
           </Button>
           <Button 
-            buttonHasBgColor="white"
+            $buttonHasBgColor="white"
+            onClick={clearAllSettings}
           >
-            <p>Clear all counters</p>
+            <p>Reset everything</p>
           </Button>
         </ButtonWrapper>
 
       </CollectorWrapper>
 
-      {/* <Collector />
-      {Array.from({ length: counterAmount }, (_, index) => (
-        <Counter key={index} />
-      ))} */}
+      <CounterWrapper>
+        {counters.map((counter, index) => (
+          <Counter 
+            key={counter.id}
+            index={index}
+            clicks={counter.clicks}
+            onIncrement={() => handleIncrement(counter.id)} 
+            removeCounter={() => removeCounter(counter.id, counter.clicks)}
+            counters={counters.length}
+          />
+        ))}
+      </CounterWrapper>
 
     </MainWrapper>
   )
