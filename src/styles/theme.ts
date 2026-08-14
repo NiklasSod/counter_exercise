@@ -9,7 +9,7 @@ export const theme = {
     gray: '#64748B',
     lightGray: '#FEF2F2',
     darkGray: '#444b55',
-    red: '#EF4444'
+    red: '#EF4444',
   },
   background: {
     main: '#F8FAFC',
@@ -17,5 +17,5 @@ export const theme = {
   hover: {
     green: '#37e5ab',
     gray: '#9aa9be',
-  }
-};
+  },
+}

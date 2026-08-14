@@ -10,23 +10,22 @@
 @keyframes explosionBurst {
   0% {
     opacity: 1;
-    transform: 
-      translate(calc(-50% + var(--start-x)), calc(-50% + var(--start-y))) 
-      rotate(var(--angle)) 
-      translate(0, 0) 
-      rotate(0deg) 
-      scale(1);
+    transform: translate(
+        calc(-50% + var(--start-x)),
+        calc(-50% + var(--start-y))
+      )
+      rotate(var(--angle)) translate(0, 0) rotate(0deg) scale(1);
   }
   70% {
     opacity: 1;
   }
   100% {
     opacity: 0;
-    transform: 
-      translate(calc(-50% + var(--start-x)), calc(-50% + var(--start-y) + 30px)) 
-      rotate(var(--angle)) 
-      translate(var(--radius), 0) 
-      rotate(var(--spin)) 
+    transform: translate(
+        calc(-50% + var(--start-x)),
+        calc(-50% + var(--start-y) + 30px)
+      )
+      rotate(var(--angle)) translate(var(--radius), 0) rotate(var(--spin))
       scale(0.9);
   }
 }
