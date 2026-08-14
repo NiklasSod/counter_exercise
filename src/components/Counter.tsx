@@ -105,7 +105,7 @@ const Counter = ({ onIncrement, removeCounter, counters, index, clicks }: Collec
         disabled={clicks === maxButtonClicks}
         $buttonClicks={clicks}
       >
-        <p>Increase value</p>
+        {clicks >= 3 ? <p>Max value (3) added</p> : <p>Increase value</p>}
       </Button>
 
     </CounterWrapper>
